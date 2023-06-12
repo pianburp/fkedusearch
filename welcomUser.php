@@ -20,7 +20,7 @@ $sessionName = $_SESSION['username'];
 </head>
 <body>
     <h1>Welcome, <?php echo $sessionName; ?>!</h1>
-    
+    <h6>Logout???</h6>
 
 
 
