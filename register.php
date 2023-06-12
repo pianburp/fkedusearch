@@ -13,7 +13,7 @@
             $servername = "localhost";
             $username = "root";
             $password = "";
-            $dbname = "newdb";
+            $dbname = "fkedu";
 
             // Create a new PDO instance
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
