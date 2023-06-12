@@ -1,6 +1,7 @@
 <?php
 // Start the session
 session_start();
+$conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_error());
 ?>
 <!doctype html>
 <html lang="en">
@@ -400,7 +401,17 @@ session_start();
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Report</h5>
-              <p class="card-text">There are 12 report in investigation </p>
+              <p class="card-text"><?php $sql = "SELECT * from report";
+
+                                    if ($result = mysqli_query($conn, $sql)) {
+
+                                      // Return the number of rows in result set
+                                      $rowcount = mysqli_num_rows($result);
+
+                                      // Display result
+                                      printf("Total reports is  %d\n", $rowcount);
+                                    }
+                                    ?> </p>
               <a href="Report.php" class="btn btn-primary">Report</a>
             </div>
           </div>

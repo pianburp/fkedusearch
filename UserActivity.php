@@ -1,6 +1,7 @@
 <?php
 // Start the session
 session_start();
+$conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_error());
 ?>
 <!doctype html>
 <html lang="en">
@@ -454,31 +455,16 @@ session_start();
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Brandon Jacob</td>
-                    <td>5</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Bridie Kessler</td>
-                    <td>4</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Ashleigh Langosh</td>
-                    <td>4</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>Angus Grady</td>
-                    <td>3</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>Raheem Lehner</td>
-                    <td>4</td>
-                  </tr>
+                <tr>
+                <?php
+                $query = "SELECT * FROM `usersatisfy`";
+                $result = mysqli_query($conn, $query); ?>
+                <?php while ($row = $result->fetch_array()) { ?>
+                  <td><?php echo $row['id']; ?> </td>
+                  <td><?php echo $row['name']; ?> </td>
+                  <td><?php echo $row['rating']; ?> </td>
+              </tr>
+            <?php } ?>
                 </tbody>
               </table>
 
