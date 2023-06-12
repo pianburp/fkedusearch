@@ -69,7 +69,7 @@ if (isset($_POST["submit"])) {
 
 </head>
 
-<body>
+<body style="background-color:powderblue;">
 
 	<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh">
 		<form class="border shadow p-3 rounded" action="" method="post" style="width: 450px;">
@@ -118,42 +118,42 @@ if (isset($_POST["submit"])) {
       </div>
       <div class="modal-body">
         <!-- Horizontal Form -->
-		<form>
+		<form action="usersatisfaction.php" method="post">
                 <div class="row mb-3">
                   <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputText">
+                    <input type="text" class="form-control" name="name">
                   </div>
                 </div>
                 <fieldset class="row mb-3">
                   <legend class="col-form-label col-sm-2 pt-0">Rating</legend>
                   <div class="col-sm-10">
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="1" checked>
+                      <input class="form-check-input" type="radio" name="gridRadios" value="1 star">
                       <label class="form-check-label" for="gridRadios1">
                         1 star
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="2">
+                      <input class="form-check-input" type="radio" name="gridRadios"  value="2 star">
                       <label class="form-check-label" for="gridRadios2">
                         2 star
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="3">
+                      <input class="form-check-input" type="radio" name="gridRadios" value="3 star">
                       <label class="form-check-label" for="gridRadios3">
                         3 star
                       </label>
                     </div>
 					<div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="3">
+                      <input class="form-check-input" type="radio" name="gridRadios" value="4 star">
                       <label class="form-check-label" for="gridRadios3">
                         4 star
                       </label>
                     </div>
 					<div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="3">
+                      <input class="form-check-input" type="radio" name="gridRadios" value="5 star">
                       <label class="form-check-label" for="gridRadios3">
                         5 star
                       </label>
