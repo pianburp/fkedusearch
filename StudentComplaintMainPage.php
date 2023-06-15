@@ -6,7 +6,7 @@
 $link = mysqli_connect("localhost", "root", "") or die(mysqli_connect_error());
 
 // Select the database.
-mysqli_select_db($link, "WE_project") or die(mysqli_error($link));
+mysqli_select_db($link, "fkedusearch") or die(mysqli_error($link));
 
 // Check if the user is logged in and retrieve the user ID.
 // Replace this with your authentication code to get the logged-in user's ID.

@@ -3,7 +3,7 @@
 $link = mysqli_connect("localhost", "root", "") or die(mysqli_connect_error());
 
 // Select the database.
-mysqli_select_db($link, "we_project") or die(mysqli_error($link));
+mysqli_select_db($link, "fkedusearch") or die(mysqli_error($link));
 
 $idURL = $_GET['id'];
 
