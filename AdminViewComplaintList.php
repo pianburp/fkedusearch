@@ -6,7 +6,7 @@
 $link = mysqli_connect("localhost", "root", "") or die(mysqli_connect_error());
 
 //Select the database.
-mysqli_select_db($link, "fkedusearch") or die(mysqli_error($link));
+mysqli_select_db($link, "fkedu") or die(mysqli_error($link));
 
 // Check if the status is selected in the URL query string
 if (isset($_GET['status'])) {

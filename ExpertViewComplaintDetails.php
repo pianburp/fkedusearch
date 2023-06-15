@@ -6,7 +6,7 @@ $idURL = $_GET['id'];
 //Connect to database
 $link = mysqli_connect("localhost", "root", "") or die(mysqli_connect_error());
 //Select the database.
-mysqli_select_db($link, "fkedusearch") or die(mysqli_error($link));
+mysqli_select_db($link, "fkedu") or die(mysqli_error($link));
 // Construct the query using the primary key
 $query = "SELECT * FROM complaint WHERE complaintID = $idURL";
 
