@@ -13,7 +13,7 @@
             $servername = "localhost";
             $username = "root";
             $password = "";
-            $dbname = "newdb";
+            $dbname = "fkedu";
 
             // Create a new PDO instance
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -55,7 +55,7 @@
                 // Redirect to a new page or perform further actions
                 $errorMessage = "Username/Password taken!";
                 //add if statements for different type of users later...
-                header('Location: LoginFormK.php');
+                header('Location: index.php');
                 exit();
             }
         } catch (PDOException $e) {
