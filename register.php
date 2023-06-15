@@ -66,7 +66,7 @@
 
         // $sql = "INSERT INTO generalusers (name, username, userpassword) values (?,?,?)"
         ?>
-        <a href="LoginFormK.php">Go Back</a>
+        <a href="index.php">Go Back</a>
         <form action="register.php" method="post">
             <input type="text" name="name" placeholder="Full Name">
             <br>
