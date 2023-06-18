@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2023 at 08:59 AM
+-- Generation Time: Jun 18, 2023 at 12:55 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -60,10 +60,12 @@ CREATE TABLE `expert` (
 --
 
 INSERT INTO `expert` (`id`, `name_expert`, `pass_expert`, `email_expert`, `status_expert`) VALUES
-(1, 'aman', '12534', 'aman@gmail.com', 'Unvalidate'),
-(2, 'adam', '42069', 'adam@gmail.com', 'Unvalidate'),
-(3, 'musyir', '11469', 'musyir@gmail.com', 'Validate'),
-(4, 'kevin', '112234', 'kevin@gmail.com', 'Validate');
+(1, 'aman', 'Titt5674', 'aman@gmail.com', 'Validate'),
+(2, 'adam', 'Titt5679', 'adam@gmail.com', 'Unvalidate'),
+(3, 'musyir', 'Titt5671', 'musyir@gmail.com', 'Validate'),
+(4, 'kevin', 'Titt5672', 'kevin@gmail.com', 'Validate'),
+(5, 'Suffian', 'Titt5678', 'suffian@gmail.com', 'Unvalidate'),
+(6, 'Satoshi', 'Btc4567', 'sats@gmail.com', 'Unvalidate');
 
 -- --------------------------------------------------------
 
@@ -87,6 +89,47 @@ INSERT INTO `report` (`id`, `title_report`, `desc_report`, `stats_report`) VALUE
 (3, 'Wifi Problem', 'Blok A Bilik 420', 'Resolved'),
 (5, 'Wifi Problem', 'Lab FKOM 64', 'Resolved'),
 (6, 'Blackout', 'ASTAKA', 'Resolved');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `name_user` varchar(60) NOT NULL,
+  `pass_user` varchar(60) NOT NULL,
+  `email_user` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `name_user`, `pass_user`, `email_user`) VALUES
+(1, 'Adam Hakim', 'Tit1234', 'adam@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `useractivity`
+--
+
+CREATE TABLE `useractivity` (
+  `id` int(11) NOT NULL,
+  `total_post` int(11) NOT NULL,
+  `total_comment` int(11) NOT NULL,
+  `total_like` int(11) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `useractivity`
+--
+
+INSERT INTO `useractivity` (`id`, `total_post`, `total_comment`, `total_like`, `date`) VALUES
+(2, 420, 666, 6721, '2023-06-01');
 
 -- --------------------------------------------------------
 
@@ -130,6 +173,18 @@ ALTER TABLE `report`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `useractivity`
+--
+ALTER TABLE `useractivity`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `usersatisfy`
 --
 ALTER TABLE `usersatisfy`
@@ -149,13 +204,25 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `expert`
 --
 ALTER TABLE `expert`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `report`
 --
 ALTER TABLE `report`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `useractivity`
+--
+ALTER TABLE `useractivity`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `usersatisfy`
