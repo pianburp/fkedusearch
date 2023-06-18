@@ -2,6 +2,9 @@
 // Start the session
 session_start();
 $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_error());
+$query = "SELECT * FROM `useractivity`";
+                $result = mysqli_query($conn, $query); 
+                while ($row = $result->fetch_array()) { 
 ?>
 <!doctype html>
 <html lang="en">
@@ -383,7 +386,7 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Total Posts</h5>
-              <p class="card-text">+777 from last month</p>
+              <p class="card-text">+<?php echo $row['total_post']; ?> from last month</p>
               <a href="#" class="btn btn-primary">View Details</a>
             </div>
           </div>
@@ -392,7 +395,7 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Total Comments</h5>
-              <p class="card-text">+420 from last month</p>
+              <p class="card-text">+<?php echo $row['total_comment']; ?> from last month</p>
               <a href="Metrics.php" class="btn btn-primary">View Details</a>
             </div>
           </div>
@@ -401,7 +404,7 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Total Likes</h5>
-              <p class="card-text">+1398 from last month </p>
+              <p class="card-text">+<?php echo $row['total_like']; ?> from last month </p>
               <a href="Report.php" class="btn btn-primary">View Details</a>
             </div>
           </div>
@@ -426,7 +429,7 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
                       ],
                       datasets: [{
                         label: 'My First Dataset',
-                        data: [1398, 420, 777],
+                        data: [<?php echo $row['total_like']; ?>, <?php echo $row['total_post']; ?>, <?php echo $row['total_comment']; ?>],
                         backgroundColor: [
                           'rgb(255, 99, 132)',
                           'rgb(54, 162, 235)',
@@ -471,7 +474,8 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
             </div>
           </div>
         </div>
-
+        
+        
       </div>
 
     </div>
@@ -496,3 +500,6 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
 </body>
 
 </html>
+<?php
+                }
+                ?>
