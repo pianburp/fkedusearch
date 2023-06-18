@@ -276,6 +276,9 @@ session_start();
 <a href="Report.php"><i class="fa-solid fa-file mr-3"></i> Report</a>
 </li>
 <li>
+<a href="ComplaintMainPage.php"><i class="fa-solid fa-file mr-3"></i> Complaint</a>
+</li>
+<li>
 <a href="logout.php"><i class="fa-solid fa-right-from-bracket mr-3"></i> Logout</a>
 </li>
 </ul>

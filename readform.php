@@ -18,10 +18,10 @@
 if (!$link) {
     die('Could not connect: ' . mysqli_connect_error());
 }
-mysqli_select_db($link, "WE_project") or die(mysqli_error($link));
+mysqli_select_db($link, "fkedu") or die(mysqli_error($link));
 
 $query = "insert into complaint values
-            ('','$PostID','$UserID','(NOW())','$Typeearr','$Desc', 'InProgress')"
+            ('','$PostID','$UserID','','$Typeearr','$Desc', 'InProgress')"
 	or die(mysqli_connect_error());
 
     $result = mysqli_query($link, $query);
