@@ -26,7 +26,7 @@ if (isset($_POST["submit"])) {
 			$sql1 = "SELECT * FROM admin WHERE name_admin = '$uname'  AND pass_admin = '$pass'";
 			$res1 = mysqli_query($conn, $sql1);
 			$_SESSION['admin'] = $uname;
-			header("Location: Home.php");
+			header("Location: HomeAdmin.php");
 			exit();
 		}
 	}
@@ -96,10 +96,10 @@ if (isset($_POST["submit"])) {
 			</select>
 			<button type="submit" name="submit" class="btn btn-primary">Login</button>
 			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#registerModal">
-			Register
-		</button>
+				Register
+			</button>
 		</form>
-		
+
 	</div>
 	<div style="position: absolute; bottom: 0px;">
 		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
@@ -177,8 +177,8 @@ if (isset($_POST["submit"])) {
 					</button>
 				</div>
 				<div class="modal-body">
-				<a href="RegisterU.php" class="btn btn-warning">User</a>
-				<a href="RegisterE.php" class="btn btn-secondary">Expert</a>
+					<a href="RegisterU.php" class="btn btn-warning">User</a>
+					<a href="RegisterE.php" class="btn btn-secondary">Expert</a>
 				</div>
 			</div>
 		</div>
