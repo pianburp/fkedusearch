@@ -3,9 +3,9 @@ session_start();
 $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_error());
 
 if (isset($_POST["submit"])) {
-	$uname = $_POST['ExpertName'];
+	$uname = $_POST['name'];
 	$role = $_POST['user_role'];
-	$pass = $_POST['ExpertPassword'];
+	$pass = $_POST['pass'];
 
 	if (empty($uname)) {
 	} else if (empty($role)) {
@@ -14,16 +14,12 @@ if (isset($_POST["submit"])) {
 		// Handle empty password
 	} else {
 
-		if ($role == "educator") {
-			$_SESSION['educator'] = $uname;
-			header("Location: ./educator/index.php");
-			exit(); // Terminate the script after redirecting
-		} else if ($role == "expert") {
+		if ($role == "expert") {
 			$_SESSION['expert'] = $uname;
 			header("Location: ./expert/index.php");
 			exit();
-		} else if ($role == "student") {
-			$_SESSION['student'] = $uname;
+		} else if ($role == "user") {
+			$_SESSION['user'] = $uname;
 			header("Location: ./student/index.php");
 			exit();
 		} else if ($role == "admin") {
@@ -83,11 +79,11 @@ if (isset($_POST["submit"])) {
 			<?php } ?>
 			<div class="mb-3">
 				<label for="username" class="form-label">Username</label>
-				<input type="text" class="form-control" name="ExpertName" required>
+				<input type="text" class="form-control" name="name" required>
 			</div>
 			<div class="mb-3">
 				<label for="password" class="form-label">Password</label>
-				<input type="password" name="ExpertPassword" class="form-control" id="password" required>
+				<input type="password" name="pass" class="form-control" id="password" required>
 			</div>
 			<div class="mb-1">
 				<label class="form-label">Select User Type:</label>
@@ -95,97 +91,116 @@ if (isset($_POST["submit"])) {
 			<select class="form-select mb-3" name="user_role" aria-label="Default select example">
 				<option disabled selected value> -- select an option -- </option>
 				<option value="admin">Admin</option>
-				<option value="student">Student</option>
+				<option value="user">User</option>
 				<option value="expert">Expert</option>
-				<option value="educator">Educator</option>
 			</select>
-			<button type="submit" name="submit" class="btn btn-primary">LOGIN</button>
+			<button type="submit" name="submit" class="btn btn-primary">Login</button>
+			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#registerModal">
+			Register
+		</button>
 		</form>
+		
 	</div>
 	<div style="position: absolute; bottom: 0px;">
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  User Satisfaction
-</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+			User Satisfaction
+		</button>
 	</div>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">User Satisfaction</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- Horizontal Form -->
-		<form action="usersatisfaction.php" method="post">
-                <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" name="name">
-                  </div>
-                </div>
-                <fieldset class="row mb-3">
-                  <legend class="col-form-label col-sm-2 pt-0">Rating</legend>
-                  <div class="col-sm-10">
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" value="1 star">
-                      <label class="form-check-label" for="gridRadios1">
-                        1 star
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios"  value="2 star">
-                      <label class="form-check-label" for="gridRadios2">
-                        2 star
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" value="3 star">
-                      <label class="form-check-label" for="gridRadios3">
-                        3 star
-                      </label>
-                    </div>
-					<div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" value="4 star">
-                      <label class="form-check-label" for="gridRadios3">
-                        4 star
-                      </label>
-                    </div>
-					<div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" value="5 star">
-                      <label class="form-check-label" for="gridRadios3">
-                        5 star
-                      </label>
-                    </div>
-                  </div>
-                </fieldset>
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </form>
-      </div>
-    </div>
-  </div>
-</div>
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">User Satisfaction</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<!-- Horizontal Form -->
+					<form action="usersatisfaction.php" method="post">
+						<div class="row mb-3">
+							<label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="name">
+							</div>
+						</div>
+						<fieldset class="row mb-3">
+							<legend class="col-form-label col-sm-2 pt-0">Rating</legend>
+							<div class="col-sm-10">
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="gridRadios" value="1 star">
+									<label class="form-check-label" for="gridRadios1">
+										1 star
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="gridRadios" value="2 star">
+									<label class="form-check-label" for="gridRadios2">
+										2 star
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="gridRadios" value="3 star">
+									<label class="form-check-label" for="gridRadios3">
+										3 star
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="gridRadios" value="4 star">
+									<label class="form-check-label" for="gridRadios3">
+										4 star
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="gridRadios" value="5 star">
+									<label class="form-check-label" for="gridRadios3">
+										5 star
+									</label>
+								</div>
+							</div>
+						</fieldset>
+						<div class="text-center">
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Register as:</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+				<a href="RegisterU.php" class="btn btn-warning">User</a>
+				<a href="RegisterE.php" class="btn btn-secondary">Expert</a>
+				</div>
+			</div>
+		</div>
+	</div>
 
-<script src="https://kit.fontawesome.com/a5df615c65.js" crossorigin="anonymous"></script>
-<script src="js/jquery.min.js"></script>
-<script src="js/popper.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/main.js"></script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816" integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw==" data-cf-beacon='{"rayId":"7d1650606b4f11bc","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2023.4.0","si":100}' crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
-<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendor/chart.js/chart.umd.js"></script>
-<script src="assets/vendor/echarts/echarts.min.js"></script>
-<script src="assets/vendor/quill/quill.min.js"></script>
-<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-<script src="assets/vendor/tinymce/tinymce.min.js"></script>
-<script src="assets/vendor/php-email-form/validate.js"></script>
-<script src="assets/js/main.js"></script>
+	<script src="https://kit.fontawesome.com/a5df615c65.js" crossorigin="anonymous"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/popper.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/main.js"></script>
+	<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816" integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw==" data-cf-beacon='{"rayId":"7d1650606b4f11bc","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2023.4.0","si":100}' crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+	<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/vendor/chart.js/chart.umd.js"></script>
+	<script src="assets/vendor/echarts/echarts.min.js"></script>
+	<script src="assets/vendor/quill/quill.min.js"></script>
+	<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+	<script src="assets/vendor/tinymce/tinymce.min.js"></script>
+	<script src="assets/vendor/php-email-form/validate.js"></script>
+	<script src="assets/js/main.js"></script>
 </body>
 
 </html>
