@@ -354,7 +354,7 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
         <h1><a href="index.html" class="logo">Menu Bar</a></h1>
         <ul class="list-unstyled components mb-5">
           <li>
-            <a href="Home.php"><i class="fa-solid fa-house mr-3"></i> Home</a>
+            <a href="HomeAdmin.php"><i class="fa-solid fa-house mr-3"></i> Home</a>
           </li>
           <li>
             <a href="UserActivity.php"><i class="fa-solid fa-user mr-3"></i> User Activity</a>
