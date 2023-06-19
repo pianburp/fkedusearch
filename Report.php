@@ -381,6 +381,12 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
       <div class="card">
         <div class="card-body">
           <h5 class="card-title"></h5>
+          <div class="search-bar">
+            <form class="search-form d-flex align-items-center" method="POST" action="#">
+              <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+              <button type="submit" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+          </div><!-- End Search Bar -->
           <table class="table table-hover">
             <thead>
               <tr>
@@ -395,8 +401,8 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
               <tr>
                 <?php
                 $query = "SELECT * FROM `report`";
-                $result = mysqli_query($conn, $query); ?>
-                <?php while ($row = $result->fetch_array()) { ?>
+                $result = mysqli_query($conn, $query); 
+                while ($row = $result->fetch_array()) { ?>
                   <td><?php echo $row['id']; ?> </td>
                   <td><?php echo $row['title_report']; ?> </td>
                   <td><?php echo $row['desc_report']; ?> </td>
