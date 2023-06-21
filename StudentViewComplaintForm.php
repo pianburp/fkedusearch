@@ -62,7 +62,7 @@ session_start();
 <div id="content" class="p-4 p-md-5 pt-5">
 <h2 class="mb-4" style="font-weight: bold;">Home</h2>
 
-<form action="readform.php" method="post">
+<form class = 'form-control form-text border shadow p-3 rounded' action="readform.php" method="post">
   <label>Post's ID </label><input type="text" name="postID"><br>
   <label>User ID </label><input type="text" name="userID"><br>
   
