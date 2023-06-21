@@ -17,4 +17,3 @@ $result = mysqli_query($link,$query) or die ("Could not execute query in ubah.ph
 if($result){
  echo "<script type = 'text/javascript'> window.location='StudentComplaintMainPage.php' </script>";
 }
-?>

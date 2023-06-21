@@ -10,9 +10,9 @@ $idURL = $_GET['id'];
 
 //SQL query
 
-$sql = "DELETE FROM complaint WHERE complaintID='$idURL'" ;
-$result = mysqli_query($link,$sql) or die ("Could not execute query in ubah.php");
-if($result){
- echo "<script type = 'text/javascript'> window.location='StudentComplaintMainPage.php' </script>";
+$sql = "DELETE FROM complaint WHERE complaintID='$idURL'";
+$result = mysqli_query($link, $sql) or die("Could not execute query in ubah.php");
+if ($result) {
+    echo "<script type = 'text/javascript'> window.location='StudentComplaintMainPage.php' </script>";
 }
 ?>
