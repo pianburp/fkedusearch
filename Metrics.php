@@ -1,6 +1,10 @@
 <?php
 // Start the session
 session_start();
+$conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_error());
+$query = "SELECT * FROM `useractivity`";
+$result = mysqli_query($conn, $query);
+while ($row = $result->fetch_array()) {
 ?>
 <!doctype html>
 <html lang="en">
@@ -377,36 +381,25 @@ session_start();
     <div id="content" class="p-4 p-md-5 pt-5">
       <h2 class="mb-4" style="font-weight: bold;">Metrics</h2>
       <div class="row">
-        <div class="col-sm-4">
+        <div class="col-lg-6">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Engagement Rate</h5>
-              <p class="card-text">+777 from last month</p>
-              <a href="#" class="btn btn-primary">View Details</a>
+              <p class="card-text">+<?php echo $row['eng_rate']; ?> from last month</p>
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-lg-6">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Retention Rate</h5>
-              <p class="card-text">+420 from last month</p>
-              <a href="Metrics.php" class="btn btn-primary">View Details</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">User Satisfaction</h5>
-              <p class="card-text">+1398 from last month </p>
-              <a href="Report.php" class="btn btn-primary">View Details</a>
+              <p class="card-text">+<?php echo $row['ret_rate']; ?> from last month</p>
             </div>
           </div>
         </div>
       </div>
       <div class="card-body">
-        <h5 class="card-title">Reports <span>/This Month</span></h5>
+        <h5 class="card-title">Reports <span>/This Year</span></h5>
         <div id="reportsChart"></div>
 
         <script>
@@ -414,17 +407,24 @@ session_start();
             new ApexCharts(document.querySelector("#reportsChart"), {
               series: [{
                 name: 'Engagement Rate',
-                data: [31, 40, 28, 51, 42, 82, 56],
+                data: [<?php $result = mysqli_query($conn, "SELECT eng_rate FROM useractivity ORDER BY id");
+                        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                          printf("%s,", $row["eng_rate"]);
+                        }
+                        mysqli_free_result($result);
+                        ?>]
               }, {
                 name: 'Retention Rate',
-                data: [11, 32, 45, 32, 34, 52, 41]
-              }, {
-                name: 'User Satisfaction',
-                data: [15, 11, 32, 18, 9, 24, 11]
+                data: [<?php $result = mysqli_query($conn, "SELECT ret_rate FROM useractivity ORDER BY id");
+                        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                          printf("%s,", $row["ret_rate"]);
+                        }
+                        mysqli_free_result($result);
+                        ?>]
               }],
               chart: {
                 height: 350,
-                type: 'line',
+                type: 'area',
                 toolbar: {
                   show: false
                 },
@@ -432,7 +432,7 @@ session_start();
               markers: {
                 size: 4
               },
-              colors: ['#4154f1', '#2eca6a', '#ff771d'],
+              colors: ['#4154f1', '#2eca6a'],
               fill: {
                 type: "gradient",
                 gradient: {
@@ -451,7 +451,7 @@ session_start();
               },
               xaxis: {
                 type: 'datetime',
-                categories: ["2023-09-11", "2023-09-12", "2023-09-13", "2023-09-14", "2023-09-15", "2023-09-16", "2023-09-17"]
+                categories: ["2023-06-01", "2023-07-01", "2023-08-01", "2023-09-01", "2023-10-01", "2023-11-01"]
               },
               tooltip: {
                 x: {
@@ -485,3 +485,5 @@ session_start();
 </body>
 
 </html>
+<?php }
+?>

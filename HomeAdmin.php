@@ -384,7 +384,7 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">User Activity</h5>
-              <p class="card-text">Total active users is 563</p>
+              <p class="card-text">Total user in downtrend</p>
               <a href="UserActivity.php" class="btn btn-primary">User Activity</a>
             </div>
           </div>
@@ -420,10 +420,10 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
       </div>
       <br><br>
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Line Chart</h5>
+              <h5 class="card-title">Total Users</h5>
 
               <!-- Line Chart -->
               <canvas id="lineChart" style="max-height: 400px;"></canvas>
@@ -432,10 +432,14 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
                   new Chart(document.querySelector('#lineChart'), {
                     type: 'line',
                     data: {
-                      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                      labels: ['June', 'July', 'August', 'September', 'October', 'November'],
                       datasets: [{
                         label: 'Line Chart',
-                        data: [65, 59, 80, 81, 56, 55, 40],
+                        data: [<?php $result = mysqli_query($conn, "SELECT total_user FROM useractivity ORDER BY id");
+                                    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                                      printf ("%s,",$row["total_user"]);
+                                    }
+                                    ?>],
                         fill: false,
                         borderColor: 'rgb(75, 192, 192)',
                         tension: 0.1
@@ -452,58 +456,6 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
                 });
               </script>
               <!-- End Line CHart -->
-
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Bar Chart</h5>
-
-              <!-- Bar Chart -->
-              <canvas id="barChart" style="max-height: 400px;"></canvas>
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  new Chart(document.querySelector('#barChart'), {
-                    type: 'bar',
-                    data: {
-                      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                      datasets: [{
-                        label: 'Bar Chart',
-                        data: [65, 59, 80, 81, 56, 55, 40],
-                        backgroundColor: [
-                          'rgba(255, 99, 132, 0.2)',
-                          'rgba(255, 159, 64, 0.2)',
-                          'rgba(255, 205, 86, 0.2)',
-                          'rgba(75, 192, 192, 0.2)',
-                          'rgba(54, 162, 235, 0.2)',
-                          'rgba(153, 102, 255, 0.2)',
-                          'rgba(201, 203, 207, 0.2)'
-                        ],
-                        borderColor: [
-                          'rgb(255, 99, 132)',
-                          'rgb(255, 159, 64)',
-                          'rgb(255, 205, 86)',
-                          'rgb(75, 192, 192)',
-                          'rgb(54, 162, 235)',
-                          'rgb(153, 102, 255)',
-                          'rgb(201, 203, 207)'
-                        ],
-                        borderWidth: 1
-                      }]
-                    },
-                    options: {
-                      scales: {
-                        y: {
-                          beginAtZero: true
-                        }
-                      }
-                    }
-                  });
-                });
-              </script>
-              <!-- End Bar CHart -->
 
             </div>
           </div>
