@@ -370,9 +370,6 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
             <a href="ExpertValidation.php"><i class="fa-solid fa-user-plus mr-3"></i> Expert Validation</a>
           </li>
           <li>
-            <a href="StudentComplaintMainPage.php"><i class="fa-solid mr-3"></i>Complaints</a>
-          </li>
-          <li>
             <a href="logout.php"><i class="fa-solid fa-right-from-bracket mr-3"></i> Logout</a>
           </li>
         </ul>
