@@ -168,7 +168,7 @@ session_start();
                     echo "<td>" . $Cdate . "</td>";
                     echo "<td>" . $Udesc . "</td>";
                     echo "<td>";
-                    echo "<a href='AdminViewComplaintDetails.php?id=" . $cID . "'>Lihat</a>";
+                    echo "<a href='AdminViewComplaintDetails.php?id=" . $cID . "'>Lihat</a> " . "|| <a href='AdminUpdateComplaintStatus.php?id=" . $cID . "'>Ubah</a> ";
                     echo "</td>";
                     echo "</tr>";
                 }
