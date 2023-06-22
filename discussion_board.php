@@ -1,18 +1,16 @@
 <?php
-// Start the session
-session_start();
-$conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_error());
 ?>
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
-  <title>Home</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <style id="" media="all">
+    <title>Discussion Board</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style id="" media="all">
+
+    /* Fancy Nav Bar Style Start */
     /* devanagari */
     @font-face {
       font-family: 'Poppins';
@@ -261,11 +259,12 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
     .dropdown:hover .dropbtn {
       background-color: #3e8e41;
     }
-  </style>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <meta name="robots" content="noindex, follow">
-  <script nonce="58affb6c-6507-42b0-8b6c-2bf5644c6acd">
+
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="robots" content="noindex, follow">
+    <script nonce="58affb6c-6507-42b0-8b6c-2bf5644c6acd">
     (function(w, d) {
       ! function(Y, Z, _, ba) {
         Y[_] = Y[_] || {};
@@ -384,96 +383,70 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
     </nav>
     <!-- fancy nav bar ends -->
 
-    <div style="height: 150px; width: 3%; "></div>
-    <div id="content" class="p-4 p-md-5 pt-5">
-      <h2 class="mb-4" style="font-weight: bold;">Home</h2>
 
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">User Activity</h5>
-              <p class="card-text">Total user in downtrend</p>
-              <a href="UserActivity.php" class="btn btn-primary">User Activity</a>
+    <div class="container">
+    <div class="p-4 p-md-5 pt-5">
+        <!-- Discussion Board -->
+            <h2 class="mb-4" style="font-weight: bold;">Discussion Board</h2>
+            
+            <!-- Add New Post -->
+            <h3>Add New Post</h3>
+            <form action="add_posts.php" method="POST">
+                <div class="form-group">
+                    <label for="post_title">Post Title:</label>
+                    <input type="text" class="form-control" id="postTitle" name="postTitle">
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="post_content">Post Content:</label>
+                    <textarea id="postContent" class="form-control" name="postContent"></textarea>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="post_category">Post Category:</label>
+                    <select id="postCategory" class="form-control" name="postCategory">
+                        <option value="Research">Research</option>
+                        <option value="Course">Course</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+                <br>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Create Post</button>
+                </div>
+            </form>
+            
+            <!-- List of posts -->
+            <br>
+            <hr>
+            <div class="mt-4" id="postContainer">
+                <h4>Posts</h4>
+
             </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Metrics</h5>
-              <p class="card-text">Retention rate is on high level</p>
-              <a href="Metrics.php" class="btn btn-primary">Metrics</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Report</h5>
-              <p class="card-text"><?php $sql = "SELECT * from report";
-
-                                    if ($result = mysqli_query($conn, $sql)) {
-
-                                      // Return the number of rows in result set
-                                      $rowcount = mysqli_num_rows($result);
-
-                                      // Display result
-                                      printf("Total reports is  %d\n", $rowcount);
-                                    }
-                                    ?> </p>
-              <a href="Report.php" class="btn btn-primary">Report</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <br><br>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Total Users</h5>
-
-              <!-- Line Chart -->
-              <canvas id="lineChart" style="max-height: 400px;"></canvas>
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  new Chart(document.querySelector('#lineChart'), {
-                    type: 'line',
-                    data: {
-                      labels: ['June', 'July', 'August', 'September', 'October', 'November'],
-                      datasets: [{
-                        label: 'Line Chart',
-                        data: [<?php $result = mysqli_query($conn, "SELECT total_user FROM useractivity ORDER BY id");
-                                    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                                      printf ("%s,",$row["total_user"]);
-                                    }
-                                    ?>],
-                        fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
-                      }]
-                    },
-                    options: {
-                      scales: {
-                        y: {
-                          beginAtZero: true
-                        }
-                      }
+                </section>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+                <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+                <script>
+                    // Use AJAX to load the posts dynamically
+                    window.addEventListener('DOMContentLoaded', function() {
+                    var postContainer = document.getElementById('postContainer');
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', 'display_post.php', true);
+                    xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        postContainer.innerHTML = xhr.responseText;
                     }
-                  });
-                });
-              </script>
-              <!-- End Line CHart -->
+                    };
+                        xhr.send();
+                    });
+                </script>
+                <br>
+        <!-- List of posts ends -->
 
-            </div>
-          </div>
         </div>
-      </div>
-
     </div>
-  </div>
-  <script src="https://kit.fontawesome.com/a5df615c65.js" crossorigin="anonymous"></script>
+
+<script src="https://kit.fontawesome.com/a5df615c65.js" crossorigin="anonymous"></script>
   <script src="js/jquery.min.js"></script>
   <script src="js/popper.js"></script>
   <script src="js/bootstrap.min.js"></script>
@@ -490,6 +463,8 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
   <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
-</body>
 
+
+
+</body>
 </html>

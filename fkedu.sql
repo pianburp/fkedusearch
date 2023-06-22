@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2023 at 05:23 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Generation Time: Jun 21, 2023 at 11:46 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -70,6 +70,35 @@ INSERT INTO `expert` (`id`, `name_expert`, `pass_expert`, `email_expert`, `statu
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `posts`
+--
+
+CREATE TABLE `posts` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `category` varchar(50) NOT NULL,
+  `content` text NOT NULL,
+  `date_added` date DEFAULT NULL,
+  `likes` int(254) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`id`, `title`, `category`, `content`, `date_added`, `likes`) VALUES
+(13, 'Car is broken', 'Course', 'Car is broken Car is broken Car is broken', NULL, 0),
+(14, 'How to do math', 'Research', 'I can\'t understand this one question', NULL, 0),
+(15, 'I am homeless, please help me', 'Others', 'I have been homeless for the past 4 days. Anyone with a home want to contact me?', NULL, 0),
+(16, 'How do you do this chapter in SE?', 'Course', 'I am having a hard time thinking about this', NULL, 0),
+(17, 'Need help now', 'Others', 'SOS', '2023-06-21', 0),
+(18, 'I have a problem with Database Systems', 'Course', 'How to filter out my column?', '2023-05-12', 0),
+(19, 'I have a problem', 'Others', 'Alfredo', '2023-06-21', 0),
+(20, 'Need some guidance on UMP OR', 'Course', 'I have having trouble opening OR', '2023-06-21', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `report`
 --
 
@@ -108,7 +137,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name_user`, `pass_user`, `email_user`) VALUES
-(1, 'Adam Hakim', 'Tit1234', 'adam@gmail.com');
+(1, 'Adam Hakim', 'Tit1234', 'adam@gmail.com'),
+(2, 'Jamal', 'K3HTApSKYj9G@y', 'tyrone@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -142,6 +172,26 @@ INSERT INTO `useractivity` (`id`, `total_post`, `total_comment`, `total_like`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `userinfo`
+--
+
+CREATE TABLE `userinfo` (
+  `userId` int(11) NOT NULL,
+  `areaOfResearch` varchar(100) NOT NULL,
+  `academicStatus` varchar(100) NOT NULL,
+  `socialMediaAccount` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `userinfo`
+--
+
+INSERT INTO `userinfo` (`userId`, `areaOfResearch`, `academicStatus`, `socialMediaAccount`) VALUES
+(1, 'Faculty of Engineering', 'Masters', '@jamalnba');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `usersatisfy`
 --
 
@@ -156,7 +206,8 @@ CREATE TABLE `usersatisfy` (
 --
 
 INSERT INTO `usersatisfy` (`id`, `name`, `rating`) VALUES
-(2, 'Satoshi Nakamoto', '5 star');
+(2, 'Satoshi Nakamoto', '5 star'),
+(3, '', '');
 
 --
 -- Indexes for dumped tables
@@ -172,6 +223,12 @@ ALTER TABLE `admin`
 -- Indexes for table `expert`
 --
 ALTER TABLE `expert`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -191,6 +248,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `useractivity`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `userinfo`
+--
+ALTER TABLE `userinfo`
+  ADD PRIMARY KEY (`userId`);
 
 --
 -- Indexes for table `usersatisfy`
@@ -215,6 +278,12 @@ ALTER TABLE `expert`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
 -- AUTO_INCREMENT for table `report`
 --
 ALTER TABLE `report`
@@ -224,7 +293,7 @@ ALTER TABLE `report`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `useractivity`
@@ -233,10 +302,16 @@ ALTER TABLE `useractivity`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `userinfo`
+--
+ALTER TABLE `userinfo`
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `usersatisfy`
 --
 ALTER TABLE `usersatisfy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

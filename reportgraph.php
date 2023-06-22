@@ -1,18 +1,14 @@
-<?php
-// Start the session
-session_start();
-$conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_error());
-?>
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
-  <title>Home</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <style id="" media="all">
+<title>Post Report</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js" ></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style id="" media="all">
+        /* Fancy Nav Bar Style Start */
     /* devanagari */
     @font-face {
       font-family: 'Poppins';
@@ -261,11 +257,11 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
     .dropdown:hover .dropbtn {
       background-color: #3e8e41;
     }
-  </style>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <meta name="robots" content="noindex, follow">
-  <script nonce="58affb6c-6507-42b0-8b6c-2bf5644c6acd">
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="robots" content="noindex, follow">
+    <script nonce="58affb6c-6507-42b0-8b6c-2bf5644c6acd">
     (function(w, d) {
       ! function(Y, Z, _, ba) {
         Y[_] = Y[_] || {};
@@ -384,97 +380,82 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
     </nav>
     <!-- fancy nav bar ends -->
 
-    <div style="height: 150px; width: 3%; "></div>
-    <div id="content" class="p-4 p-md-5 pt-5">
-      <h2 class="mb-4" style="font-weight: bold;">Home</h2>
-
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">User Activity</h5>
-              <p class="card-text">Total user in downtrend</p>
-              <a href="UserActivity.php" class="btn btn-primary">User Activity</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Metrics</h5>
-              <p class="card-text">Retention rate is on high level</p>
-              <a href="Metrics.php" class="btn btn-primary">Metrics</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Report</h5>
-              <p class="card-text"><?php $sql = "SELECT * from report";
-
-                                    if ($result = mysqli_query($conn, $sql)) {
-
-                                      // Return the number of rows in result set
-                                      $rowcount = mysqli_num_rows($result);
-
-                                      // Display result
-                                      printf("Total reports is  %d\n", $rowcount);
-                                    }
-                                    ?> </p>
-              <a href="Report.php" class="btn btn-primary">Report</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <br><br>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Total Users</h5>
-
-              <!-- Line Chart -->
-              <canvas id="lineChart" style="max-height: 400px;"></canvas>
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  new Chart(document.querySelector('#lineChart'), {
-                    type: 'line',
-                    data: {
-                      labels: ['June', 'July', 'August', 'September', 'October', 'November'],
-                      datasets: [{
-                        label: 'Line Chart',
-                        data: [<?php $result = mysqli_query($conn, "SELECT total_user FROM useractivity ORDER BY id");
-                                    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                                      printf ("%s,",$row["total_user"]);
-                                    }
-                                    ?>],
-                        fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
-                      }]
-                    },
-                    options: {
-                      scales: {
-                        y: {
-                          beginAtZero: true
-                        }
-                      }
-                    }
-                  });
-                });
-              </script>
-              <!-- End Line CHart -->
-
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <div class="container">
+        <h2 style="text-align:center;"><b>Total number of posts by day/week/month</b></h2>
+        <canvas id="postChart"></canvas>
     </div>
-  </div>
-  <script src="https://kit.fontawesome.com/a5df615c65.js" crossorigin="anonymous"></script>
+    
+    <?php
+    // Connect to the database
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "fkedu";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+   
+    // Fetch the post counts by day, week, and month
+    $queryDay = "SELECT DATE(date_added) AS post_date, COUNT(*) AS count FROM posts GROUP BY DATE(date_added)";
+    $resultDay = $conn->query($queryDay);
+    $postCountsDay = ($resultDay->num_rows > 0) ? $resultDay->fetch_all(MYSQLI_ASSOC) : array();
+
+    $queryWeek = "SELECT YEAR(date_added) AS year, WEEK(date_added) AS week, COUNT(*) AS count FROM posts GROUP BY YEAR(date_added), WEEK(date_added)";
+    $resultWeek = $conn->query($queryWeek);
+    $postCountsWeek = ($resultWeek->num_rows > 0) ? $resultWeek->fetch_all(MYSQLI_ASSOC) : array();
+
+    $queryMonth = "SELECT YEAR(date_added) AS year, MONTH(date_added) AS month, COUNT(*) AS count FROM posts GROUP BY YEAR(date_added), MONTH(date_added)";
+    $resultMonth = $conn->query($queryMonth);
+    $postCountsMonth = ($resultMonth->num_rows > 0) ? $resultMonth->fetch_all(MYSQLI_ASSOC) : array();
+
+    // Close the database connection
+    $conn->close();
+    ?>
+    
+    <script>
+        // Prepare the data for the chart
+        var postCountsDay = <?php echo json_encode($postCountsDay); ?>;
+        var postCountsWeek = <?php echo json_encode($postCountsWeek); ?>;
+        var postCountsMonth = <?php echo json_encode($postCountsMonth); ?>;
+
+        // Create the chart
+        var ctx = document.getElementById('postChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: postCountsDay.map(function(post) { return post.post_date; }),
+                datasets: [{
+                    label: 'Posts by Day',
+                    data: postCountsDay.map(function(post) { return post.count; }),
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    borderWidth: 1
+                }, {
+                    label: 'Posts by Week',
+                    data: postCountsWeek.map(function(post) { return post.count; }),
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderWidth: 1
+                }, {
+                    label: 'Posts by Month',
+                    data: postCountsMonth.map(function(post) { return post.count; }),
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        precision: 0
+                    }
+                }
+            }
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/a5df615c65.js" crossorigin="anonymous"></script>
   <script src="js/jquery.min.js"></script>
+  
   <script src="js/popper.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/main.js"></script>
@@ -491,5 +472,4 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
 </body>
-
 </html>

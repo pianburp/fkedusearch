@@ -337,7 +337,7 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
     <div style="margin-right: 100px;" class="dropdown">
       <span><i class="fa-solid fa-user"></i></span>
       <div class="dropdown-content">
-        <a href="#">Profile</a>
+        <a href="user_profile.php">Profile</a>
         <a href="logout.php">Logout</a>
       </div>
     </div>
@@ -357,13 +357,19 @@ $conn = mysqli_connect("localhost", "root", "", "fkedu") or die(mysqli_connect_e
             <a href="HomeAdmin.php"><i class="fa-solid fa-house mr-3"></i> Home</a>
           </li>
           <li>
+            <a href="Discussion_board.php"><i class="fa-solid fa-envelope"></i> &nbsp;&nbsp; Discussion Board</a>
+          </li>
+          <li>
             <a href="UserActivity.php"><i class="fa-solid fa-user mr-3"></i> User Activity</a>
           </li>
           <li>
             <a href="Metrics.php"><i class="fa-solid fa-chart-simple mr-3"></i>Metrics</a>
           </li>
-          <li class="active">
-            <a href="#"><i class="fa-solid fa-file mr-3"></i> Report</a>
+          <li>
+            <a href="reportgraph.php"><i class="fa-solid fa-chart-simple mr-3"></i>Posts Report</a>
+          </li>
+          <li>
+            <a href="Report.php"><i class="fa-solid fa-file mr-3"></i> Report</a>
           </li>
           <li>
             <a href="ExpertValidation.php"><i class="fa-solid fa-user-plus mr-3"></i> Expert Validation</a>
