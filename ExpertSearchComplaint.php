@@ -127,49 +127,66 @@ session_start();
     <div id="content" class="p-4 p-md-5 pt-5">
       <h2 class="mb-4" style="font-weight: bold;">Home</h2>
       <?php
-      // Connect to the database server.
-      $link = mysqli_connect("localhost", "root", "") or die(mysqli_connect_error());
+// Retrieve the selected post ID value from the query parameter
+$postID = $_GET['postID'];
 
-      // Select the database.
-      mysqli_select_db($link, "fkedu") or die(mysqli_error($link));
+// Connect to the database server
+$link = mysqli_connect("localhost", "root", "") or die(mysqli_connect_error());
 
-      // SQL query to fetch the number of complaints for each post ID.
-      $query = "SELECT postID, COUNT(*) AS complaintCount FROM complaint WHERE complaint_status = 'Approved' GROUP BY postID";
-      $result = mysqli_query($link, $query);
+// Select the database
+mysqli_select_db($link, "fkedu") or die(mysqli_error($link));
 
-      // Check if there are any results.
-      if (mysqli_num_rows($result) > 0) {
-        echo "<table class='table table-hover'>
-            <tr>
+// Construct the query to fetch complaints for the specific post ID
+$query = "SELECT * FROM complaint WHERE postID = $postID AND complaint_status = 'Approved'";
+
+// Execute the query
+$result = mysqli_query($link, $query);
+
+// Process the query result
+if ($result) {
+    // Check if any rows are returned
+    if (mysqli_num_rows($result) > 0) {
+        echo "<table class='table table-hover'>";
+        echo "<tr>
+                <th>Complaint ID</th>
                 <th>Post ID</th>
-                <th>Complaint Count</th>
-            </tr>";
-
-        // Fetch and display the data for each post ID.
-        while ($row = mysqli_fetch_assoc($result)) {
-          $postID = $row['postID'];
-          $complaintCount = $row['complaintCount'];
-
-          echo "<tr>
-                <td>$postID</td>
-                <td>$complaintCount</td>
-                <td><a href='ExpertViewComplaintList.php?postID=" . $postID . "'>View Complaint Details</a></td>
+                <th>User ID</th>
+                <th>Complaint Type</th>
+                <th>Complaint Date</th>
+                <th>Complaint Description</th>
+                <th>Complaint Status</th>
               </tr>";
+
+        // Loop through the result and display the data
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<tr>";
+            echo "<td>" . $row['complaintID'] . "</td>";
+            echo "<td>" . $row['postID'] . "</td>";
+            echo "<td>" . $row['userID'] . "</td>";
+            echo "<td>" . $row['complaint_type'] . "</td>";
+            echo "<td>" . $row['complaint_date'] . "</td>";
+            echo "<td>" . $row['complaint_desc'] . "</td>";
+            echo "<td>" . $row['complaint_status'] . "</td>";
+            echo "</tr>";
         }
 
         echo "</table>";
-      } else {
-        echo "No results found for the specified post IDs and status.";
-      }
+    } else {
+        echo "No complaints found for the selected post ID.";
+    }
 
-      // Close the database connection.
-      mysqli_close($link);
-      ?>
-<form method="get" action="ExpertSearchComplaint.php">
-    <input type="text" name="postID" placeholder="Enter Post ID">
-    <button type="submit">Search</button>
-</form>
-      <a href='ExpertViewComplaintReport.php?id=".$cID."'>Kembali</a>
+    // Free the result set
+    mysqli_free_result($result);
+} else {
+    // Handle the case where the query fails
+    // ...
+}
+
+// Close the database connection
+mysqli_close($link);
+?>
+
+<a href='ExpertViewComplaintReport.php'>Back</a>
 </body>
-
+</div>
 </html>
