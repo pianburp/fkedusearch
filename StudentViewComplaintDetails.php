@@ -103,13 +103,7 @@ session_start();
           echo "No data found for the selected primary key.";
         }
 
-        // Free the result set
-        mysqli_free_result($result);
-      } else {
-        // Handle the case where the query fails
-        // ...
       }
-
       // Close the database connection.
       mysqli_close($link);
       ?>

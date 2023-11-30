@@ -1,4 +1,4 @@
-<!-- update -->
+<!-- delete -->
 <?php
 //Connect to the database server.
 $link = mysqli_connect("localhost", "root", "") or die(mysqli_connect_error());

@@ -112,13 +112,8 @@ if ($result) {
     } else {
         echo "No complaints found for the selected post ID.";
     }
-
-    // Free the result set
-    mysqli_free_result($result);
-} else {
-    // Handle the case where the query fails
-    // ...
-}
+  }
+   
 
 // Close the database connection
 mysqli_close($link);
@@ -145,3 +140,4 @@ mysqli_close($link);
 </body>
 </div>
 </html>
+  
